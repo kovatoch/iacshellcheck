@@ -18,6 +18,6 @@ jobs:
         run: |
           podman run --rm --privileged -v ${{ github.workspace }}/stop.sh:/script.sh testshellcheck > ${{ github.workspace }}/output.txt
 
-          more ${{ github.workspace }}/output.txt
+          cat ${{ github.workspace }}/output.txt
           
           
