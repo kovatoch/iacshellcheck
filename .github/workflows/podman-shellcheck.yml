@@ -9,6 +9,11 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
+
+      - name: Show workdir
+        run:
+          echo "${{ github.workspace }}"
+
       - name: Run the script
         run: |
           podman run --rm -v ${GITHUB_WORKSPACE}\stop.sh:/script.sh testshellcheck /script.sh > ${GITHUB_WORKSPACE}\output.txt
