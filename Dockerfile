@@ -18,11 +18,11 @@ RUN yum -y install ShellCheck && \
     yum clean all && \
     rm -rf /var/cache/yum
 
-# Set the working directory
-WORKDIR /scripts
+# Copy the linting script into the container
+COPY lint.sh /usr/local/bin/lint.sh
 
-# Copy the script(s) to the container
-COPY stop.sh .
+# Make the linting script executable
+RUN chmod +x /usr/local/bin/lint.sh
 
-# Specify the command to run when the container starts
-CMD ["bash"]
+# Set the entry point for the container
+ENTRYPOINT ["/usr/local/bin/lint.sh"]

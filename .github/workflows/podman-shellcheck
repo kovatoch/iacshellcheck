@@ -1,0 +1,21 @@
+
+name: Self Hosted Runner
+
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+      - name: Run the script
+        run: |
+          if [[ "$(podman images -q testshellchech 2> /dev/null)" == "" ]]; then
+            podman build -t iaccontainer .
+          fi  
+          
+          podman run -d --name my_new_iaccontainer iaccontainer:latest 
+          podman run --rm -v ${GITHUB_WORKSPACE}\stop.sh:/script.sh testshellcheck /script.sh > ${GITHUB_WORKSPACE}\output.txt
+
+          cat ${GITHUB_WORKSPACE}\output.txt

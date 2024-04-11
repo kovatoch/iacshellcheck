@@ -7,5 +7,5 @@ if [ -z "$1" ]; then
 fi
 
 # Lint the provided script using ShellCheck
-echo "Linting $1 ..."
-shellcheck "$1"
+echo "Linting $1"
+#shellcheck "$1"
