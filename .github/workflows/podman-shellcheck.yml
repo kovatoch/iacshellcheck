@@ -16,4 +16,6 @@ jobs:
 
       - name: Run the script
         run: |
-          podman run --rm -v ${{ github.workspace }}\stop.sh:/script.sh testshellcheck /script.sh 
+          podman run --rm -v ${{ github.workspace }}\stop.sh:/script.sh testshellcheck /script.sh > ${{ github.workspace }}\output.txt
+
+          more ${{ github.workspace }}\output.txt
