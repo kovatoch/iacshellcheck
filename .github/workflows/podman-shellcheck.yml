@@ -45,7 +45,7 @@ jobs:
       
       - name: Create Pull Request
         if: ${{ steps.create-pr.outcome == 'success' }}
-        uses: actions/github-script@0.11.0
+        uses: actions/github-script@7.0.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
