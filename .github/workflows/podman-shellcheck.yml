@@ -18,12 +18,12 @@ jobs:
         run: |
           podman run --rm --privileged -v ${{ github.workspace }}/stop.sh:/script.sh testshellcheck /script.sh > ${{ github.workspace }}/output.txt
 
-          cat ${{ github.workspace }}/output.txt
-
           expected_text="Linting /script.sh!"
 
           # Use `cat` to read the contents of the file
           file_contents=$(cat "${{ github.workspace }}/output.txt")
+
+          echo $file_contents
 
           # Check if the file contents match the expected text
           if [ "$file_contents" = "$expected_text" ]; then
