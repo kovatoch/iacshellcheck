@@ -19,5 +19,18 @@ jobs:
           podman run --rm --privileged -v ${{ github.workspace }}/stop.sh:/script.sh testshellcheck /script.sh > ${{ github.workspace }}/output.txt
 
           cat ${{ github.workspace }}/output.txt
+
+          expected_text="Hello, world!"
+
+          # Use `cat` to read the contents of the file
+          file_contents=$(cat "${{ github.workspace }}/output.txt")
+
+          # Check if the file contents match the expected text
+          if [ "$file_contents" = "$expected_text" ]; then
+            echo "Linting succeded."
+          else
+            echo "Linting failed."
+          fi
+        
           
           
