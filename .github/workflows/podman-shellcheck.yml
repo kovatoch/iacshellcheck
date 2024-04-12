@@ -20,7 +20,7 @@ jobs:
 
           cat ${{ github.workspace }}/output.txt
 
-          expected_text="Hello, world!"
+          expected_text="Linting /script.sh!"
 
           # Use `cat` to read the contents of the file
           file_contents=$(cat "${{ github.workspace }}/output.txt")
