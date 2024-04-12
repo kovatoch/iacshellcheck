@@ -35,5 +35,5 @@ jobs:
             echo "Linting succeced"
           else
             echo "Linting NOT succeced"
-          fi                    
+          fi                     
           
