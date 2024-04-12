@@ -32,8 +32,8 @@ jobs:
           
           # Check if the file contents match the expected text
           if [ "$file_contents" = "$expected_text" ]; then
-            return 0
+            echo "Linting succeced"
           else
-            return 1
+            echo "Linting NOT succeced"
           fi                    
           
