@@ -3,6 +3,9 @@ name: Self Hosted Runner
 
 on:
   push:
+    branches:
+      - main
+      
 jobs:
   build:
     runs-on: self-hosted
@@ -14,10 +17,16 @@ jobs:
         run:
           echo "${{ github.workspace }}"
 
-      - name: Run the script
+      - name: Run Linting
         run: |
           podman run --rm --privileged -v ${{ github.workspace }}/stop.sh:/script.sh testshellcheck /script.sh > ${{ github.workspace }}/output.txt
 
+          
+
+      - name: Determine if PR should be created
+        id: create-pr
+        run: |
+          # Use script to determine if a PR should be created (exit 0 to create PR, exit 1 to skip PR creation)
           expected_text="Linting /script.sh"
           
           # Use `cat` to read the contents of the file
@@ -28,10 +37,30 @@ jobs:
           
           # Check if the file contents match the expected text
           if [ "$file_contents" = "$expected_text" ]; then
-            echo "Linting succeded."
+            return 0
           else
-            echo "Linting failed."
-          fi
-        
+            return 1
+          fi          
+
+      
+      - name: Create Pull Request
+        if: ${{ steps.create-pr.outcome == 'success' }}
+        uses: actions/github-script@0.11.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const title = 'Automated Pull Request';
+            const body = 'This pull request is automatically created based on checks.';
+            const head = 'feature-branch'; // Replace with your branch name
+            const base = 'main'; // Replace with your target branch name
+            const response = await github.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: title,
+              body: body,
+              head: head,
+              base: base
+            });
+            console.log(`Pull request created: ${response.data.html_url}`);
           
           
