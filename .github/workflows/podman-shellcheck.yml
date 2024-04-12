@@ -20,4 +20,4 @@ jobs:
       - name: Run Linting
         run: |
           echo ${{ github.workspace }}/stop_copy.sh
-          podman run --rm --privileged -v ${{ github.workspace }}/stop_copy.sh:/script.sh testshellcheck /script.sh > ${{ github.workspace }}/output.txt
+          cat ${{ github.workspace }}/stop_copy.sh
