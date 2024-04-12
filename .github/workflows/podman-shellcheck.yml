@@ -22,8 +22,7 @@ jobs:
           echo ${{ github.workspace }}/stop_copy.sh
           cat ${{ github.workspace }}/stop_copy.sh
 
-          if ! podman run --rm --privileged -v ${{ github.workspace }}/stop_minumum.sh:/script.sh testshellcheck /script.sh 
-          > ${{ github.workspace }}/output.txt then
+          if ! podman run --rm --privileged -v ${{ github.workspace }}/stop_minumum.sh:/script.sh testshellcheck /script.sh > ${{ github.workspace }}/output.txt; then
             echo "Linting NOT succeded"
           fi
 
