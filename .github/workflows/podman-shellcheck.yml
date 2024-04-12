@@ -19,7 +19,8 @@ jobs:
 
       - name: Run Linting
         run: |
-          podman run --rm --privileged -v ${{ github.workspace }}/stop.sh:/script.sh testshellcheck /script.sh > ${{ github.workspace }}/output.txt
+          echo ${{ github.workspace }}/stop_copy.sh
+          podman run --rm --privileged -v ${{ github.workspace }}/stop_copy.sh:/script.sh testshellcheck /script.sh > ${{ github.workspace }}/output.txt
 
                     # Use script to determine if a PR should be created (exit 0 to create PR, exit 1 to skip PR creation)
           expected_text="Linting /script.sh"
