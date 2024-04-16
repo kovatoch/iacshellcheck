@@ -16,6 +16,6 @@ HOW_TO_CALL="$0 HostName IntegrationName"
 DIR=$(dirname "$0")
 [ $# -ne 2 ] && { echo "$HOW_TO_CALL"; exit 1; }
 
-echo $DIR
+echo "$DIR"
 
 
